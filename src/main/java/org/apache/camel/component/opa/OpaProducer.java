@@ -56,7 +56,6 @@ public class OpaProducer extends DefaultProducer {
         RequestConfig.Builder requestConfigBuilder = RequestConfig.custom();
 
         if(opaEndpoint.getConnectTimeout() > 0) {
-            log.info("_______________________________________________________________" + opaEndpoint.getConnectTimeout());
             requestConfigBuilder.setConnectTimeout(opaEndpoint.getConnectTimeout() * 1000);
         }
 
@@ -73,7 +72,7 @@ public class OpaProducer extends DefaultProducer {
 
         try {
             String input = exchange.getIn().getBody(String.class);
-            log.trace("--------------------Request received by OPA Component: {}", input);
+            log.trace("Request received by OPA Component: {}", input);
 
             HttpPost httpPost = new HttpPost(transformOpaEndpoint(opaEndpoint));
             HttpEntity httpEntity = new ByteArrayEntity(input.getBytes());
@@ -85,20 +84,14 @@ public class OpaProducer extends DefaultProducer {
                 OpaResult opaResult = gson.fromJson(reader, OpaResult.class);
                 if (!opaResult.isResult()) {
                     handleException(opaEndpoint, "OPA returned not allowed", exchange);
-                    //exchange.setException(new Exception("OPA returned not allowed"));
-                    //throw new IllegalAccessException("OPA returned not allowed");
                 }
             } else {
                 handleException(opaEndpoint, "Error calling OPA endpoint: " + getEndpoint().getEndpointUri(), exchange);
-                //exchange.setException(new Exception("Error calling OPA endpoint: " + getEndpoint().getEndpointUri()));
-                //throw new IllegalAccessException("Error calling OPA endpoint: " + getEndpoint().getEndpointUri());
             }
             exchange.getIn().setHeader("OPA-RESULT", "Valid");
 
         } catch(Exception e) {
             handleException(opaEndpoint, e, exchange);
-            //exchange.setException(e);
-            //throw new IllegalAccessException("Error calling OPA component:  " + e.getMessage());
         } finally {
             closeableHttpClient.close();
         }
