@@ -129,20 +129,6 @@ public class OpaRouteTest  {
         assertTrue(out.getException() != null);
     }
 
-    @Test
-    public void testRealServer() throws Exception {
-        camel.addRoutes(createRouteBuilder("opa:localhost:8181/v1/data/myapi/policy/allow?secure=false&handleError=true"));
-        camel.start();
-
-        Endpoint endpoint = camel.getEndpoint("direct:start");
-        Exchange exchange = endpoint.createExchange();
-
-        exchange.getIn().setBody(successMessage);
-        Exchange out = template.send(endpoint, exchange);
-
-        assertTrue(contains("Valid", exchange.getIn().getHeader("OPA-RESULT")));
-    }
-
     protected RouteBuilder createRouteBuilder(final String opaEndpointUrl) throws Exception {
         return new RouteBuilder() {
             // START SNIPPET: route
