@@ -18,7 +18,9 @@ package org.apache.camel.component.opa;
 
 import java.util.Map;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
+import org.apache.camel.spi.Metadata;
 import org.apache.camel.spi.annotations.Component;
 import org.apache.camel.support.DefaultComponent;
 
@@ -29,11 +31,16 @@ import org.apache.camel.support.DefaultComponent;
 public class OpaComponent extends DefaultComponent {
 
     public OpaComponent() {
+        this(null);
+    }
+
+    public OpaComponent(CamelContext context) {
+        super(context);
     }
 
     @Override
     protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {
-        Endpoint endpoint = new OpaEndpoint(uri, this);
+        OpaEndpoint endpoint = new OpaEndpoint(uri, this);
         setProperties(endpoint, parameters);
         return endpoint;
     }

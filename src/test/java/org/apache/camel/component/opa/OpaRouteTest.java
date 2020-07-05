@@ -75,7 +75,7 @@ public class OpaRouteTest  {
     
     @Test
     public void testSuccessCall() throws Exception {
-        camel.addRoutes(createRouteBuilder("opa:127.0.0.1:1080/test?secure=false&handleError=true"));
+        camel.addRoutes(createRouteBuilder("opa:127.0.0.1:1080/test?secure=false&handleError=true&operationType=" + OpaOperationType.QUERY));
         camel.start();
 
         Endpoint endpoint = camel.getEndpoint("direct:start");
@@ -89,7 +89,7 @@ public class OpaRouteTest  {
 
     @Test
     public void testUnauthorizedWithErrorHandling() throws Exception {
-        camel.addRoutes(createRouteBuilder("opa:127.0.0.1:1080/test?secure=false&handleError=true"));
+        camel.addRoutes(createRouteBuilder("opa:127.0.0.1:1080/test?secure=false&handleError=true&operationType=" + OpaOperationType.QUERY));
         camel.start();
 
         Endpoint endpoint = camel.getEndpoint("direct:start");
@@ -103,7 +103,7 @@ public class OpaRouteTest  {
 
     @Test
     public void testUnauthorizedWithoutErrorHandling() throws Exception {
-        camel.addRoutes(createRouteBuilder("opa:127.0.0.1:1080/test?secure=false&handleError=false"));
+        camel.addRoutes(createRouteBuilder("opa:127.0.0.1:1080/test?secure=false&handleError=false&operationType=" + OpaOperationType.QUERY));
         camel.start();
 
         Endpoint endpoint = camel.getEndpoint("direct:start");
@@ -117,7 +117,7 @@ public class OpaRouteTest  {
 
     @Test
     public void testWrongHostWithoutErrorHandling() throws Exception {
-        camel.addRoutes(createRouteBuilder("opa:111.111.1.1:1080/test?secure=false&handleError=false&connectTimeout=4"));
+        camel.addRoutes(createRouteBuilder("opa:111.111.1.1:1080/test?secure=false&handleError=false&connectTimeout=4&operationType=" + OpaOperationType.QUERY));
         camel.start();
 
         Endpoint endpoint = camel.getEndpoint("direct:start");

@@ -65,7 +65,7 @@ opa:endpoint
 
 with the following path and query parameters:
 
-=== Path Parameters (5 parameters):
+=== Path Parameters (6 parameters):
 
 
 [width="100%",cols="2,5,^1,2",options="header"]
@@ -76,6 +76,7 @@ with the following path and query parameters:
 | *connectTimeout* | Connect timeout in seconds |  | int
 | *connectionRequestTimeout* | Connection Request timeout in seconds |  | int
 | *socketTimeout* | Socket timeout in seconds |  | int
+| *operationType* | Set the operation type: Query, ACL (access control list) or Policy. The value can be one of: QUERY, ACL, POLICY |  | OpaOperationType
 |===
 
 

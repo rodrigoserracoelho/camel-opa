@@ -45,6 +45,8 @@ public class OpaEndpoint extends DefaultEndpoint {
     @UriPath
     private int socketTimeout = OpaConstants.DEFAULT_TIMEOUT_VALUE;
 
+    @UriPath
+    private OpaOperationType operationType;
 
     protected OpaEndpoint(String endpointUri, OpaComponent component) {
         super(endpointUri, component);
@@ -118,5 +120,17 @@ public class OpaEndpoint extends DefaultEndpoint {
      */
     public void setSocketTimeout(int socketTimeout) {
         this.socketTimeout = socketTimeout;
+    }
+
+    public OpaOperationType getOperationType() {
+        return operationType;
+    }
+
+    /**
+     * Set the operation type: Query, ACL (access control list) or Policy
+     * @param operationType
+     */
+    public void setOperationType(OpaOperationType operationType) {
+        this.operationType = operationType;
     }
 }
